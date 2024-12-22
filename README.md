@@ -22,6 +22,7 @@
 
 - install kwinscript
 - add a program(`alacritty`,`kitty` tested) with parameters that override the window class to `huake1` or `huake2` to Autostart [video](https://github.com/anametologin/huake/issues/1#issue-2754649047)
+- if you are using tiling scripts you need exclude `huake1` and `huake2` window classes if you don't want to dropdown terminals will be tiled
 
 ### Install huake-x.x.x.kwinscript package file
 
