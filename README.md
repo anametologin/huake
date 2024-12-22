@@ -1,10 +1,10 @@
 # Huake
 
-[Kwin6]: https://en.wikipedia.org/wiki/KWin script that gives your terminal Alacritty, Kitty(or any other window that can change the own window class to: `huake1`, `huake2`) the ability to drop down by shortcut.
+[Kwin6](https://en.wikipedia.org/wiki/KWin) script that gives your terminal Alacritty, Kitty(or any other window that can change the own window class to: `huake1`, `huake2`) the ability to drop down by shortcut.
 
 `Huake` - in the language of the ancestors of the ancient Sumerians means preparing a product for the final stage
 
-`Why?` - Do you love drop down terminals as much as I do? -I don't think so. [Yakuake]: https://apps.kde.org/yakuake/ perfectly worked until Wayland, now if it is open on one virtual desktop, it no longer opens on another, cannot disable the right click menu. The latters concerns [Tilda]:https://github.com/lanoxx/tilda [issue]:https://github.com/lanoxx/tilda/issues/473 from 2021.
+`Why?` - Do you love drop down terminals as much as I do? -I don't think so. [Yakuake](https://apps.kde.org/yakuake/) perfectly worked until Wayland, now if it is open on one virtual desktop, it no longer opens on another, cannot disable the right click menu. The latters concerns [Tilda](https://github.com/lanoxx/tilda) [issue](https://github.com/lanoxx/tilda/issues/473) from 2021.
 
 ## Features
 
@@ -21,7 +21,7 @@
 ## Installation
 
 - install kwinscript
-- add a program(`alacritty`,`kitty` tested) with parameters that override the window class to `huake1` or `huake2` to Autostart
+- add a program(`alacritty`,`kitty` tested) with parameters that override the window class to `huake1` or `huake2` to Autostart ![video](media/installation_huake.mp4)
 
 ### Install huake-x.x.x.kwinscript package file
 
@@ -97,4 +97,4 @@ Alacritty
 alacritty --class huake1
 ```
 
-![installation](media/installation_huake.webm)
+![installation](media/installation_huake.mp4)
