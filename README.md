@@ -21,7 +21,7 @@
 ## Installation
 
 - install kwinscript
-- add a program(`alacritty`,`kitty` tested) with parameters that override the window class to `huake1` or `huake2` to Autostart ![video](media/installation_huake.mp4)
+- add a program(`alacritty`,`kitty` tested) with parameters that override the window class to `huake1` or `huake2` to Autostart [video](https://github.com/anametologin/huake/issues/1#issue-2754649047)
 
 ### Install huake-x.x.x.kwinscript package file
 
@@ -97,4 +97,4 @@ Alacritty
 alacritty --class huake1
 ```
 
-![installation](media/installation_huake.mp4)
+[![installation](media/installation_huake.mp4)](https://github.com/anametologin/huake/issues/1#issue-2754649047)
