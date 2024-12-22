@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HuakeForm</class>
+ <widget class="QWidget" name="HuakeForm">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>359</width>
+    <height>715</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Huake settings</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Kwin properties</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="5" column="1">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>maximize</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_noBorder2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_noBorder1">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_maximize1">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_skipTaskbar1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>32</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_keepAbove2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_onAllDesktops1">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>no Border</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_onAllDesktops2">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>on all desktops</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_skipTaskbar2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="skipTaskbarLabel">
+        <property name="text">
+         <string>skip Taskbar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>keep above</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_keepAbove1">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_maximize2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Positioning</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_height1">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="specialValueText">
+         <string/>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>90</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>top indent</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>height</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_leftIndent2">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="maximum">
+         <number>99</number>
+        </property>
+        <property name="value">
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_leftIndent1">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="value">
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_width2">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>90</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_topIndent1">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="value">
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_topIndent2">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="value">
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_width1">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>90</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>left indent</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_height2">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>%</string>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>90</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+     <zorder>kcfg_height1</zorder>
+     <zorder>label_7</zorder>
+     <zorder>kcfg_leftIndent1</zorder>
+     <zorder>kcfg_leftIndent2</zorder>
+     <zorder>label_8</zorder>
+     <zorder>kcfg_topIndent1</zorder>
+     <zorder>kcfg_topIndent2</zorder>
+     <zorder>label_9</zorder>
+     <zorder>kcfg_width1</zorder>
+     <zorder>kcfg_width2</zorder>
+     <zorder>label_10</zorder>
+     <zorder>kcfg_height2</zorder>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>Location</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>on active screen</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_onActiveScreen1">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="noLabelCheckBox" name="kcfg_onActiveScreen2">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>monitor, #</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_monitorNumber1"/>
+      </item>
+      <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QSpinBox" name="kcfg_monitorNumber2"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>noLabelCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>nolabelcheckbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

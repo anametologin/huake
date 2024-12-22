@@ -1,0 +1,14 @@
+{
+  "include": ["src/"],
+  "exclude": ["*.*", "pkg/"],
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es6",
+    "outFile": "huake.js",
+    "noEmitOnError": false,
+    "removeComments": true,
+    "lib": ["es6"],
+    "alwaysStrict": true,
+    "strict": true
+  }
+}

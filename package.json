@@ -1,0 +1,23 @@
+{
+  "name": "huake",
+  "version": "0.1.0",
+  "description": "Switch among windows by pressing key. Extension for KWin.",
+  "main": "huake.js",
+  "directories": {},
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anametologin/huake"
+  },
+  "author": "Vjatcheslav V. Kolchkov <akl334@protonmail.ch>",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/anametologin/huake/issues"
+  },
+  "homepage": "https://github.com/anametologin/huake#readme"
+}

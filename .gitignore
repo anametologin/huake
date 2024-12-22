@@ -1,0 +1,10 @@
+/pkg/
+/node_modules/
+
+/TODO.md
+/huake.js
+/package-lock.json
+
+/*.qml
+*.kwinscript
+*.bak

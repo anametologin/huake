@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+    <kcfgfile name=""/>
+    <group name="">
+
+    <entry name="skipTaskbar1" type="Bool">
+	    <label>Show window in taskbar</label>
+        <default>true</default>
+    </entry>
+    <entry name="skipTaskbar2" type="Bool">
+	    <label>Show window in taskbar</label>
+        <default>true</default>
+    </entry>
+
+    <entry name="keepAbove1" type="Bool">
+	    <label>Keep window above others</label>
+        <default>true</default>
+    </entry>
+    <entry name="keepAbove2" type="Bool">
+	    <label>Keep window above others</label>
+        <default>true</default>
+    </entry>
+
+    <entry name="noBorder1" type="Bool">
+	    <label>shor the window border</label>
+        <default>true</default>
+    </entry>
+    <entry name="noBorder2" type="Bool">
+	    <label>show the window border</label>
+        <default>true</default>
+    </entry>
+
+    <entry name="onAllDesktops1" type="Bool">
+	    <label>show the window on all virtual desktops</label>
+        <default>false</default>
+    </entry>
+    <entry name="onAllDesktops2" type="Bool">
+	    <label>show the window on all virtual desktops</label>
+        <default>false</default>
+    </entry>
+
+    <entry name="maximize1" type="Bool">
+	    <label>enlarge the window on all screen</label>
+        <default>true</default>
+    </entry>
+    <entry name="maximize2" type="Bool">
+	    <label>enlarge the window on all screen</label>
+        <default>true</default>
+    </entry>
+
+    <entry name="leftIndent1" type="Int">
+      <label>Left indent in persent</label>
+      <default>5</default>
+    </entry>
+    <entry name="leftIndent2" type="Int">
+      <label>Left indent in persent</label>
+      <default>5</default>
+    </entry>
+
+    <entry name="topIndent1" type="Int">
+      <label>Top indent in persent</label>
+      <default>5</default>
+    </entry>
+    <entry name="topIndent2" type="Int">
+      <label>Top indent in persent</label>
+      <default>5</default>
+    </entry>
+
+    <entry name="width1" type="Int">
+      <label>window width in percent</label>
+      <default>90</default>
+    </entry>
+    <entry name="width2" type="Int">
+      <label>window width in percent</label>
+      <default>90</default>
+    </entry>
+
+    <entry name="height1" type="Int">
+      <label>window height in percent</label>
+      <default>90</default>
+    </entry>
+    <entry name="height2" type="Int">
+      <label>window height in percent</label>
+      <default>90</default>
+    </entry>
+
+    <entry name="onActiveScreen1" type="Bool">
+	    <label>show window on active screen</label>
+        <default>false</default>
+    </entry>
+    <entry name="onActiveScreen2" type="Bool">
+	    <label>show window on active screen</label>
+        <default>false</default>
+    </entry>
+
+    <entry name="monitorNumber1" type="Int">
+      <label>monitor number: xrandr --listmonitors</label>
+      <default>0</default>
+    </entry>
+    <entry name="monitorNumber2" type="Int">
+      <label>monitor number: xrandr --listmonitors</label>
+      <default>0</default>
+    </entry>
+
+  </group>
+</kcfg>

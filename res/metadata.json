@@ -1,0 +1,23 @@
+{
+  "KPackageStructure": "KWin/Script",
+  "KPlugin": {
+    "Name": "Huake",
+    "Description": "This kwin script makes your terminal drop-down by shortcut ($REV)",
+    "Icon": "dialog-tile-clones",
+
+    "Authors": [
+      {
+        "Email": "akl334@protonmail.ch",
+        "Name": "Vjatcheslav V. Kolchkov"
+      }
+    ],
+    "Id": "huake",
+    "Version": "$VER",
+    "License": "GPLv2",
+    "Website": "https://github.com/anametologin/huake"
+  },
+  "X-Plasma-API": "declarativescript",
+  "X-Plasma-API-Minimum-Version": "6.0",
+  "X-Plasma-MainScript": "ui/main.qml",
+  "X-KDE-ConfigModule": "kwin/effects/configs/kcm_kwin4_genericscripted"
+}
