@@ -1,6 +1,6 @@
 {
   "name": "huake",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Switch among windows by pressing key. Extension for KWin.",
   "main": "huake.js",
   "directories": {},
