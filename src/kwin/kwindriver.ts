@@ -169,21 +169,12 @@ class KWinDriver implements IDriverContext {
         toggledWindow.desktops = [currentVirtualDesktop];
         isShow = true;
       }
-      if (!ctx.toggledWindowsArr[idx].rendered) {
-        ctx.windowPositioning.bind(ctx)(toggledWindow, idx);
-        if (CONFIG.maximize[idx]) toggledWindow.setMaximize(true, true);
-        ctx.toggledWindowsArr[idx].rendered = true;
-        toggledWindow.minimized = false;
-        ctx.workspace.activeWindow = toggledWindow;
-      } else if (isShow) {
-        ctx.windowPositioning.bind(ctx)(toggledWindow, idx);
-        toggledWindow.minimized = false;
-        ctx.workspace.activeWindow = toggledWindow;
-      } else if (
-        toggledWindow.minimized &&
-        CONFIG.onActiveScreen &&
-        ctx.workspace.activeScreen.name !==
-          ctx.toggledWindowsArr[idx].outputName
+      if (
+        isShow ||
+        (toggledWindow.minimized &&
+          CONFIG.onActiveScreen &&
+          ctx.workspace.activeScreen.name !==
+            ctx.toggledWindowsArr[idx].outputName)
       ) {
         ctx.windowPositioning.bind(ctx)(toggledWindow, idx);
         toggledWindow.minimized = false;
@@ -209,13 +200,9 @@ class KWinDriver implements IDriverContext {
         : this.workspace.screens[0];
     }
     this.toggledWindowsArr[idx].outputName = output.name;
+    this.workspace.sendClientToScreen(win, output);
     if (CONFIG.maximize[idx]) {
-      win.frameGeometry = Qt.rect(
-        output.geometry.x + output.geometry.x * 0.2,
-        output.geometry.y + output.geometry.y * 0.2,
-        output.geometry.width - output.geometry.width * 0.4,
-        output.geometry.height - output.geometry.height * 0.4
-      );
+      win.frameGeometry = this.workspace.clientArea(KWIN.MaximizeArea, win);
     } else {
       let leftIndent = (output.geometry.width * CONFIG.leftIndent[idx]) / 100;
       let topIndent = (output.geometry.height * CONFIG.topIndent[idx]) / 100;

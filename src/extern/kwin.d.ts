@@ -1,4 +1,5 @@
 interface KWin {
+  MaximizeArea: number;
   readConfig<T>(property: string, defaultValue: T): T;
   registerShortcut(
     name: string,
