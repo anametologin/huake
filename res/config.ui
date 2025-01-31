@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>359</width>
-    <height>715</height>
+    <height>727</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,6 +29,25 @@
    <string>Huake settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Options</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="kcfg_focusFirst">
+        <property name="text">
+         <string>Focus first then toggle</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="sizePolicy">

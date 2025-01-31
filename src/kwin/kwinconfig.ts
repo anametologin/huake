@@ -1,4 +1,5 @@
 class KWinConfig implements IConfig {
+  focusFirst: boolean;
   skipTaskbar: boolean[];
   keepAbove: boolean[];
   noBorder: boolean[];
@@ -11,6 +12,7 @@ class KWinConfig implements IConfig {
   onActiveScreen: boolean[];
   monitorNumber: number[];
   constructor() {
+    this.focusFirst = KWIN.readConfig("focusFirst", true);
     this.skipTaskbar = [
       KWIN.readConfig("skipTaskbar1", true),
       KWIN.readConfig("skipTaskbar2", true),

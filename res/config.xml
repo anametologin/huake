@@ -6,6 +6,11 @@
     <kcfgfile name=""/>
     <group name="">
 
+    <entry name="focusFirst" type="Bool">
+	    <label>Focus first then toggle</label>
+        <default>true</default>
+    </entry>
+
     <entry name="skipTaskbar1" type="Bool">
 	    <label>Show window in taskbar</label>
         <default>true</default>

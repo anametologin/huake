@@ -9,6 +9,7 @@ interface IShortcuts {
 }
 
 interface IConfig {
+  focusFirst: boolean;
   skipTaskbar: boolean[];
   keepAbove: boolean[];
   noBorder: boolean[];
@@ -30,6 +31,10 @@ interface IDriverContext {
   tryGetToggledWindow(ctx: Workspace, idx: number): KwinWindow | null;
   addWindow(idx: number, win: KwinWindow): void;
   newToggledWindow(): toggledWindowType;
-  windowPositioning(win: KwinWindow, idx: number): void;
+  windowPositioning(
+    win: KwinWindow,
+    idx: number,
+    isOutputChanged: boolean
+  ): void;
 }
 let CONFIG: IConfig;

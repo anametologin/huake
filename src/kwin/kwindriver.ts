@@ -130,9 +130,20 @@ class KWinDriver implements IDriverContext {
       let winClass = kwinWindow.resourceClass.trim();
       if (winClass === "huake1") {
         this.addWindow(0, kwinWindow);
+        this.bindWindowEvents(this, kwinWindow, 0);
       } else if (winClass === "huake2") {
         this.addWindow(1, kwinWindow);
+        this.bindWindowEvents(this, kwinWindow, 1);
       }
+    });
+  }
+  private bindWindowEvents(
+    ctx: IDriverContext,
+    window: KwinWindow,
+    index: number
+  ) {
+    this.connect(window.outputChanged, () => {
+      ctx.windowPositioning.bind(ctx)(window, index, true);
     });
   }
 
@@ -176,8 +187,14 @@ class KWinDriver implements IDriverContext {
           ctx.workspace.activeScreen.name !==
             ctx.toggledWindowsArr[idx].outputName)
       ) {
-        ctx.windowPositioning.bind(ctx)(toggledWindow, idx);
+        ctx.windowPositioning.bind(ctx)(toggledWindow, idx, false);
         toggledWindow.minimized = false;
+        ctx.workspace.activeWindow = toggledWindow;
+      } else if (
+        CONFIG.focusFirst &&
+        !toggledWindow.minimized &&
+        !toggledWindow.active
+      ) {
         ctx.workspace.activeWindow = toggledWindow;
       } else if (toggledWindow.minimized) {
         toggledWindow.minimized = false;
@@ -190,9 +207,11 @@ class KWinDriver implements IDriverContext {
     }
   }
 
-  windowPositioning(win: KwinWindow, idx: number) {
+  windowPositioning(win: KwinWindow, idx: number, isOutputChanged: boolean) {
     let output: Output;
-    if (CONFIG.onActiveScreen[idx]) {
+    if (isOutputChanged) {
+      output = win.output;
+    } else if (CONFIG.onActiveScreen[idx]) {
       output = this.workspace.activeScreen;
     } else {
       output = this.workspace.screens[CONFIG.monitorNumber[idx]]
