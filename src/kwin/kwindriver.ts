@@ -4,7 +4,6 @@ interface IToggledWindow {
   window: KwinWindow | null;
   accessTime: number;
   rendered: boolean;
-  outputName: string;
 }
 
 type toggledWindowType = Required<IToggledWindow>;
@@ -38,9 +37,6 @@ class KWinDriver implements IDriverContext {
     let userIndex = idx + 1;
     const clients: KwinWindow[] = workspace.stackingOrder;
     for (let i = 0; i < clients.length; i++) {
-      print(
-        `huake:userIndex:${userIndex} wincaption-${clients[i].resourceClass}`
-      );
       if (
         clients[i].resourceClass.trim() === `huake${userIndex}` &&
         !clients[i].deleted
@@ -72,12 +68,10 @@ class KWinDriver implements IDriverContext {
   }
 
   public workspace: Workspace;
-
   public toggledWindowsArr: toggledWindowType[];
-
   private shortcuts: IShortcuts;
-
   private entered: boolean;
+  private outputWasChangedByScript: boolean;
 
   constructor(api: Api) {
     KWIN = api.kwin;
@@ -85,6 +79,7 @@ class KWinDriver implements IDriverContext {
     this.shortcuts = api.shortcuts;
     this.toggledWindowsArr = [this.newToggledWindow(), this.newToggledWindow()];
     this.entered = false;
+    this.outputWasChangedByScript = false;
   }
 
   /*
@@ -137,13 +132,18 @@ class KWinDriver implements IDriverContext {
       }
     });
   }
+
   private bindWindowEvents(
     ctx: IDriverContext,
     window: KwinWindow,
     index: number
   ) {
     this.connect(window.outputChanged, () => {
-      ctx.windowPositioning.bind(ctx)(window, index, true);
+      if (!this.outputWasChangedByScript) {
+        ctx.windowPositioning.bind(ctx)(window, index, true);
+      } else {
+        this.outputWasChangedByScript = false;
+      }
     });
   }
 
@@ -152,7 +152,7 @@ class KWinDriver implements IDriverContext {
       window: null,
       accessTime: 0,
       rendered: false,
-      outputName: "",
+      //outputName: "",
     };
   }
 
@@ -184,8 +184,7 @@ class KWinDriver implements IDriverContext {
         isShow ||
         (toggledWindow.minimized &&
           CONFIG.onActiveScreen &&
-          ctx.workspace.activeScreen.name !==
-            ctx.toggledWindowsArr[idx].outputName)
+          ctx.workspace.activeScreen.name !== toggledWindow.output.name)
       ) {
         ctx.windowPositioning.bind(ctx)(toggledWindow, idx, false);
         toggledWindow.minimized = false;
@@ -209,19 +208,25 @@ class KWinDriver implements IDriverContext {
 
   windowPositioning(win: KwinWindow, idx: number, isOutputChanged: boolean) {
     let output: Output;
+    let vDesktop = this.workspace.currentDesktop;
     if (isOutputChanged) {
       output = win.output;
-    } else if (CONFIG.onActiveScreen[idx]) {
-      output = this.workspace.activeScreen;
     } else {
-      output = this.workspace.screens[CONFIG.monitorNumber[idx]]
-        ? this.workspace.screens[CONFIG.monitorNumber[idx]]
-        : this.workspace.screens[0];
+      if (CONFIG.onActiveScreen[idx]) {
+        output = this.workspace.activeScreen;
+        this.outputWasChangedByScript = output.name !== win.output.name;
+      } else {
+        output = this.workspace.screens[CONFIG.monitorNumber[idx]]
+          ? this.workspace.screens[CONFIG.monitorNumber[idx]]
+          : this.workspace.screens[0];
+      }
     }
-    this.toggledWindowsArr[idx].outputName = output.name;
-    this.workspace.sendClientToScreen(win, output);
     if (CONFIG.maximize[idx]) {
-      win.frameGeometry = this.workspace.clientArea(KWIN.MaximizeArea, win);
+      win.frameGeometry = this.workspace.clientArea(
+        KWIN.MaximizeArea,
+        output,
+        vDesktop
+      );
     } else {
       let leftIndent = (output.geometry.width * CONFIG.leftIndent[idx]) / 100;
       let topIndent = (output.geometry.height * CONFIG.topIndent[idx]) / 100;
