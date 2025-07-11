@@ -1,5 +1,5 @@
 PROJECT_NAME = huake
-PROJECT_VER  = 0.1.2
+PROJECT_VER  = 0.1.3
 PROJECT_REV  = $(shell git rev-parse HEAD | cut -b-7)
 
 KWINPKG_FILE = $(PROJECT_NAME)-$(PROJECT_VER).kwinscript
