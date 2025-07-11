@@ -55,6 +55,7 @@ interface KwinWindow {
   readonly decorationHasAlpha: boolean;
   readonly providesContextHelp: boolean;
   readonly maximizable: boolean;
+  readonly maximizeMode: MaximizeMode;
   readonly moveable: boolean;
   readonly moveableAcrossScreens: boolean;
   readonly resizeable: boolean;

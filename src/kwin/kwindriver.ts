@@ -3,20 +3,21 @@ var KWIN: KWin;
 interface IToggledWindow {
   window: KwinWindow | null;
   accessTime: number;
-  rendered: boolean;
+  // rendered: boolean;
+  output: Output | null;
+  index: number;
 }
-
 type toggledWindowType = Required<IToggledWindow>;
 
 class KWinDriver implements IDriverContext {
   public static backendName: string = "kwin";
 
-  getWindow(idx: number): KwinWindow | null {
+  getWindow(idx: number): IToggledWindow | null {
     let currentTime = new Date().valueOf();
     let currentConsole = this.toggledWindowsArr[idx];
     if (currentConsole && currentTime - currentConsole.accessTime > 200) {
       if (currentConsole.window !== null && currentConsole.window.deleted) {
-        this.toggledWindowsArr[idx] = this.newToggledWindow();
+        this.toggledWindowsArr[idx] = this.newToggledWindow(idx);
       }
       if (currentConsole.window === null) {
         let foundConsole = this.tryGetToggledWindow(this.workspace, idx);
@@ -25,7 +26,7 @@ class KWinDriver implements IDriverContext {
         }
       }
       currentConsole.accessTime = currentTime;
-      return currentConsole.window;
+      return currentConsole;
     }
     return null;
   }
@@ -61,6 +62,22 @@ class KWinDriver implements IDriverContext {
     win.onAllDesktops = CONFIG.onAllDesktops[idx];
     win.minimized = true;
     toggledWindow.window = win;
+    toggledWindow.output = this.getInitialOutput(idx);
+  }
+
+  private getInitialOutput(idx: number): Output {
+    let output: Output;
+    if (CONFIG.onActiveScreen[idx]) {
+      output = this.workspace.activeScreen;
+    } else {
+      if (CONFIG.monitorNumber[idx] >= this.workspace.screens.length) {
+        output = this.workspace.screens[this.workspace.screens.length - 1];
+      } else {
+        output = this.workspace.screens[CONFIG.monitorNumber[idx]];
+      }
+    }
+    this.outputWasChangedByScript = true;
+    return output;
   }
 
   public get backend(): string {
@@ -77,7 +94,10 @@ class KWinDriver implements IDriverContext {
     KWIN = api.kwin;
     this.workspace = api.workspace;
     this.shortcuts = api.shortcuts;
-    this.toggledWindowsArr = [this.newToggledWindow(), this.newToggledWindow()];
+    this.toggledWindowsArr = [
+      this.newToggledWindow(0),
+      this.newToggledWindow(1),
+    ];
     this.entered = false;
     this.outputWasChangedByScript = false;
   }
@@ -140,19 +160,22 @@ class KWinDriver implements IDriverContext {
   ) {
     this.connect(window.outputChanged, () => {
       if (!this.outputWasChangedByScript) {
-        ctx.windowPositioning.bind(ctx)(window, index, true);
+        const toggledWindow = ctx.toggledWindowsArr[index];
+        toggledWindow.output = window.output;
+        ctx.windowPositioning.bind(ctx)(toggledWindow);
       } else {
         this.outputWasChangedByScript = false;
       }
     });
   }
 
-  newToggledWindow(): IToggledWindow {
+  newToggledWindow(idx: number): IToggledWindow {
     return {
       window: null,
       accessTime: 0,
-      rendered: false,
-      //outputName: "",
+      // rendered: false,
+      output: null,
+      index: idx,
     };
   }
 
@@ -166,62 +189,60 @@ class KWinDriver implements IDriverContext {
   }
 
   private toggleWindowCallback(ctx: IDriverContext, idx: number) {
-    let w = ctx.workspace;
-    let toggledWindow = ctx.getWindow.bind(ctx)(idx);
-    const currentVirtualDesktop = w.currentDesktop;
-
-    if (toggledWindow !== null) {
-      let desktops = toggledWindow.desktops;
-      let isShow = false;
-      if (
-        desktops.length !== 0 &&
-        desktops.find((d) => d.id === currentVirtualDesktop.id) === undefined
-      ) {
-        toggledWindow.desktops = [currentVirtualDesktop];
-        isShow = true;
-      }
-      if (
-        isShow ||
-        (toggledWindow.minimized &&
-          CONFIG.onActiveScreen &&
-          ctx.workspace.activeScreen.name !== toggledWindow.output.name)
-      ) {
-        ctx.windowPositioning.bind(ctx)(toggledWindow, idx, false);
-        toggledWindow.minimized = false;
-        ctx.workspace.activeWindow = toggledWindow;
-      } else if (
-        CONFIG.focusFirst &&
-        !toggledWindow.minimized &&
-        !toggledWindow.active
-      ) {
-        ctx.workspace.activeWindow = toggledWindow;
-      } else if (toggledWindow.minimized) {
-        toggledWindow.minimized = false;
-        ctx.workspace.activeWindow = toggledWindow;
-      } else {
-        toggledWindow.minimized = true;
-      }
-    } else {
+    let toggleWindow = ctx.getWindow.bind(ctx)(idx);
+    if (toggleWindow === null || toggleWindow.window === null) {
       print(`Huake: toggleWindow: ${idx} is null`);
+      return;
+    }
+    let w = ctx.workspace;
+    const currentVirtualDesktop = w.currentDesktop;
+    const win = toggleWindow.window;
+
+    let desktops = win.desktops;
+    let isShow = false;
+    if (
+      desktops.length !== 0 &&
+      desktops.find((d) => d.id === currentVirtualDesktop.id) === undefined
+    ) {
+      win.desktops = [currentVirtualDesktop];
+      isShow = true;
+    }
+    if (
+      isShow ||
+      (win.minimized &&
+        ((CONFIG.onActiveScreen && ctx.workspace.activeScreen !== win.output) ||
+          win.output !== toggleWindow.output))
+    ) {
+      ctx.windowPositioning.bind(ctx)(toggleWindow);
+      win.minimized = false;
+      ctx.workspace.activeWindow = win;
+    } else if (CONFIG.focusFirst && !win.minimized && !win.active) {
+      ctx.workspace.activeWindow = win;
+    } else if (win.minimized) {
+      win.minimized = false;
+      ctx.workspace.activeWindow = win;
+    } else {
+      win.minimized = true;
     }
   }
 
-  windowPositioning(win: KwinWindow, idx: number, isOutputChanged: boolean) {
+  windowPositioning(toggledWindow: IToggledWindow) {
+    if (toggledWindow.window === null || toggledWindow.output === null) return;
     let output: Output;
+    let win = toggledWindow.window;
     let vDesktop = this.workspace.currentDesktop;
-    if (isOutputChanged) {
-      output = win.output;
+    let idx = toggledWindow.index;
+
+    if (CONFIG.onActiveScreen[idx]) {
+      output = toggledWindow.output = this.workspace.activeScreen;
+      this.outputWasChangedByScript =
+        toggledWindow.output.name !== toggledWindow.window.output.name;
     } else {
-      if (CONFIG.onActiveScreen[idx]) {
-        output = this.workspace.activeScreen;
-        this.outputWasChangedByScript = output.name !== win.output.name;
-      } else {
-        output = this.workspace.screens[CONFIG.monitorNumber[idx]]
-          ? this.workspace.screens[CONFIG.monitorNumber[idx]]
-          : this.workspace.screens[0];
-      }
+      output = toggledWindow.output;
     }
+
     if (CONFIG.maximize[idx]) {
+      // if (win.maximizeMode === 0) win.setMaximize(true, true);
       win.frameGeometry = this.workspace.clientArea(
         KWIN.MaximizeArea,
         output,

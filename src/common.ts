@@ -27,14 +27,10 @@ interface IDriverContext {
   workspace: Workspace;
   readonly backend: string;
   toggledWindowsArr: toggledWindowType[];
-  getWindow(idx: number): KwinWindow | null;
+  getWindow(idx: number): toggledWindowType | null;
   tryGetToggledWindow(ctx: Workspace, idx: number): KwinWindow | null;
   addWindow(idx: number, win: KwinWindow): void;
-  newToggledWindow(): toggledWindowType;
-  windowPositioning(
-    win: KwinWindow,
-    idx: number,
-    isOutputChanged: boolean
-  ): void;
+  newToggledWindow(idx: number): toggledWindowType;
+  windowPositioning(toggledWindow: toggledWindowType): void;
 }
 let CONFIG: IConfig;
