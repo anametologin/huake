@@ -3,7 +3,7 @@ var KWIN: KWin;
 interface IToggledWindow {
   window: KwinWindow | null;
   accessTime: number;
-  // rendered: boolean;
+  wasRendered: boolean;
   output: Output | null;
   index: number;
 }
@@ -33,16 +33,16 @@ class KWinDriver implements IDriverContext {
 
   public tryGetToggledWindow(
     workspace: Workspace,
-    idx: number
+    idx: number,
   ): KwinWindow | null {
-    let userIndex = idx + 1;
+    const huakeWinClass = idx === 0 ? CONFIG.winClass1 : CONFIG.winClass2;
     const clients: KwinWindow[] = workspace.stackingOrder;
     for (let i = 0; i < clients.length; i++) {
       if (
-        clients[i].resourceClass.trim() === `huake${userIndex}` &&
+        clients[i].resourceClass.trim() === huakeWinClass &&
         !clients[i].deleted
       ) {
-        print(`huake: Found huake${userIndex}`);
+        print(`huake: Found huake Window${idx + 1} WinClass: ${huakeWinClass}`);
         return clients[i];
       }
     }
@@ -63,6 +63,7 @@ class KWinDriver implements IDriverContext {
     win.minimized = true;
     toggledWindow.window = win;
     toggledWindow.output = this.getInitialOutput(idx);
+    toggledWindow.wasRendered = false;
   }
 
   private getInitialOutput(idx: number): Output {
@@ -114,7 +115,7 @@ class KWinDriver implements IDriverContext {
 
   private connect(
     signal: Signal<(...args: any[]) => void>,
-    handler: (..._: any[]) => void
+    handler: (..._: any[]) => void,
   ): () => void {
     const wrapper = (...args: any[]) => {
       /* HACK: `workspace` become undefined when the script is disabled. */
@@ -143,10 +144,10 @@ class KWinDriver implements IDriverContext {
   private bindEvents() {
     this.connect(this.workspace.windowAdded, (kwinWindow: KwinWindow) => {
       let winClass = kwinWindow.resourceClass.trim();
-      if (winClass === "huake1") {
+      if (winClass === CONFIG.winClass1) {
         this.addWindow(0, kwinWindow);
         this.bindWindowEvents(this, kwinWindow, 0);
-      } else if (winClass === "huake2") {
+      } else if (winClass === CONFIG.winClass2) {
         this.addWindow(1, kwinWindow);
         this.bindWindowEvents(this, kwinWindow, 1);
       }
@@ -156,7 +157,7 @@ class KWinDriver implements IDriverContext {
   private bindWindowEvents(
     ctx: IDriverContext,
     window: KwinWindow,
-    index: number
+    index: number,
   ) {
     this.connect(window.outputChanged, () => {
       if (!this.outputWasChangedByScript) {
@@ -173,7 +174,7 @@ class KWinDriver implements IDriverContext {
     return {
       window: null,
       accessTime: 0,
-      // rendered: false,
+      wasRendered: false,
       output: null,
       index: idx,
     };
@@ -206,6 +207,10 @@ class KWinDriver implements IDriverContext {
     ) {
       win.desktops = [currentVirtualDesktop];
       isShow = true;
+    }
+    if (!toggleWindow.wasRendered) {
+      isShow = true;
+      toggleWindow.wasRendered = true;
     }
     if (
       isShow ||
@@ -243,11 +248,7 @@ class KWinDriver implements IDriverContext {
 
     if (CONFIG.maximize[idx]) {
       // if (win.maximizeMode === 0) win.setMaximize(true, true);
-      win.frameGeometry = this.workspace.clientArea(
-        KWIN.MaximizeArea,
-        output,
-        vDesktop
-      );
+      win.frameGeometry = this.workspace.clientArea(2, output, vDesktop);
     } else {
       let leftIndent = (output.geometry.width * CONFIG.leftIndent[idx]) / 100;
       let topIndent = (output.geometry.height * CONFIG.topIndent[idx]) / 100;
@@ -261,7 +262,7 @@ class KWinDriver implements IDriverContext {
           : output.geometry.width - leftIndent,
         output.geometry.height - height - topIndent >= 0
           ? height
-          : output.geometry.height - topIndent
+          : output.geometry.height - topIndent,
       );
     }
   }

@@ -10,6 +10,8 @@ interface IShortcuts {
 
 interface IConfig {
   focusFirst: boolean;
+  winClass1: string;
+  winClass2: string;
   skipTaskbar: boolean[];
   keepAbove: boolean[];
   noBorder: boolean[];

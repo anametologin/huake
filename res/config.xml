@@ -11,6 +11,15 @@
         <default>true</default>
     </entry>
 
+    <entry name="winClass1" type="String">
+	    <label>Override the default class name: huake1</label>
+        <default>huake1</default>
+    </entry>
+    <entry name="winClass2" type="String">
+	    <label>Override the default class name: huake2</label>
+        <default>huake2</default>
+    </entry>
+
     <entry name="skipTaskbar1" type="Bool">
 	    <label>Show window in taskbar</label>
         <default>true</default>
